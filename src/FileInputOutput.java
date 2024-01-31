@@ -1,3 +1,5 @@
+import java.io.*;
+import java.util.Scanner;
 public class FileInputOutput {
 
     public static void main(String[] args) {
@@ -8,6 +10,37 @@ public class FileInputOutput {
 //       5) Add exception handling (try & catch) when needed
 //       6) Close the files after finishing the processing
 //       7) Commit your code and push it to the GitHub
+
+        FileInputStream myFile = null;
+        try{
+            myFile = new FileInputStream("src/moviesDataset.csv");
+        } catch(FileNotFoundException e){
+            System.out.println("Could not open file");
+            System.exit(1);
+        }
+
+        Scanner fileReader = new Scanner(myFile);
+        while (fileReader.hasNextLine()){
+            String data = fileReader.nextLine();
+            System.out.println(data);
+        }
+        fileReader.close();
+
+        FileInputStream myFile1 = null;
+        try {
+            myFile1 = new FileInputStream("src/moviesDataset.csv");
+        } catch (FileNotFoundException e) {
+            System.out.println("Could not open file");
+            System.exit(1);
+        }
+
+        Scanner  fileReader1 = new Scanner(myFile1);
+        while (fileReader1.hasNextLine()){
+            String data = fileReader1.nextLine();
+            String[] movie = data.split(",");
+            System.out.println(movie[2]);
+        }
+        fileReader1.close();
 
     }
 
