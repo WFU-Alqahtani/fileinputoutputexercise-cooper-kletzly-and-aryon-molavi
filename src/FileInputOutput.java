@@ -10,38 +10,61 @@ public class FileInputOutput {
 //       5) Add exception handling (try & catch) when needed
 //       6) Close the files after finishing the processing
 //       7) Commit your code and push it to the GitHub
+       /*
+        String movies = "";
 
         FileInputStream myFile = null;
-        try{
-            myFile = new FileInputStream("src/moviesDataset.csv");
-        } catch(FileNotFoundException e){
-            System.out.println("Could not open file");
-            System.exit(1);
-        }
-
-        Scanner fileReader = new Scanner(myFile);
-        while (fileReader.hasNextLine()){
-            String data = fileReader.nextLine();
-            System.out.println(data);
-        }
-        fileReader.close();
-
-        FileInputStream myFile1 = null;
         try {
-            myFile1 = new FileInputStream("src/moviesDataset.csv");
+            myFile = new FileInputStream("src/moviesDataset.csv");
         } catch (FileNotFoundException e) {
             System.out.println("Could not open file");
             System.exit(1);
         }
 
-        Scanner  fileReader1 = new Scanner(myFile1);
-        while (fileReader1.hasNextLine()){
-            String data = fileReader1.nextLine();
+
+        Scanner fileReader = new Scanner(myFile);
+        while (fileReader.hasNextLine()) {
+            String data = fileReader.nextLine();
+            System.out.println(data);
             String[] movie = data.split(",");
-            System.out.println(movie[2]);
+            movies += movie[2] + "\n";
         }
-        fileReader1.close();
 
+        System.out.println(movies);
+*/
+
+        FileInputStream myFile = null;
+        try {
+            myFile = new FileInputStream("src/moviesDataset.csv");
+        } catch (FileNotFoundException e) {
+            System.out.println("Could not open file");
+            System.exit(1);
+        }
+
+        PrintWriter fileWriter;
+        FileOutputStream myFile1 = null;
+        Scanner fileReader = new Scanner(myFile);
+
+        try {
+            myFile1 = new FileOutputStream("outputFile.txt");
+        } catch (FileNotFoundException e) {
+            System.out.println("Could not open file");
+            System.exit(1);
+        }
+        fileWriter = new PrintWriter(myFile1);
+        int year;
+        fileReader.nextLine();
+        while (fileReader.hasNextLine()) {
+            String data = fileReader.nextLine();
+            String[] movie = data.split(",");
+              try {
+                  year = Integer.parseInt(movie[4]);
+                  fileWriter.println(year);
+              }
+              catch (NumberFormatException e1){
+                  fileWriter.println("n/a");
+              }
+        }
+        fileWriter.close();
     }
-
 }
